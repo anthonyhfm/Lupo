@@ -1,5 +1,6 @@
-from Cocoa import NSObject, NSApplication, NSApp, NSWindow, NSButton, NSSound
+from Cocoa import NSWindow
 from PyObjCTools import AppHelper
+from .osx_display import get_display_size
 
 
 class OSX_OBJC_WINDOW:
@@ -9,9 +10,15 @@ class OSX_OBJC_WINDOW:
     window_width = 250
     window_height = 250
 
-    def __init__(self):
+    def __init__(self, main_view):
         self.win = NSWindow.alloc()
-        frame = ((self.window_x, self.window_y), (self.window_width, self.window_height))
+
+        screen_size = get_display_size()
+
+        frame = (
+            (screen_size["width"] / 2 - self.window_width / 2, screen_size["height"] / 2 - self.window_height / 2),
+            (self.window_width, self.window_height)
+        )
 
         self.win.initWithContentRect_styleMask_backing_defer_(frame, 15, 2, 0)
         self.win.setTitle_(self.title)
