@@ -1,4 +1,4 @@
-from Cocoa import NSWindow
+from Cocoa import NSWindow, NSObject, NSApp, NSApplication, NSMenu, NSMenuItem
 from PyObjCTools import AppHelper
 from .osx_display import get_display_size
 
@@ -10,7 +10,7 @@ class OSX_OBJC_WINDOW:
     window_width = 250
     window_height = 250
 
-    def __init__(self, main_view):
+    def __init__(self):
         self.win = NSWindow.alloc()
 
         screen_size = get_display_size()
@@ -27,6 +27,19 @@ class OSX_OBJC_WINDOW:
     def set_title(self, title):
         self.title = title
         self.win.setTitle_(self.title)
+
+    def set_body(self, osx_render):
+        self.win.contentView().addSubview_(osx_render)
+
+    def set_size(self, width, height):
+        self.window_width = width
+        self.window_height = height
+
+        frame = self.win.frame()
+        frame.size.width = width
+        frame.size.height = height
+
+        self.win.setContentSize_(frame.size)
 
     def display_window(self):
         self.win.display()

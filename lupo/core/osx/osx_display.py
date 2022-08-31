@@ -8,3 +8,6 @@ def get_display_size():
         "width": ns_screen_size.width,
         "height": ns_screen_size.height
     }
+
+def set_menu_bar():
+    ...
