@@ -7,7 +7,7 @@ if sys.platform == "darwin":
 
 
 class Column(View):
-    def get_osx_render(self, parent=None, superview: NSView = None):
+    def get_osx_render(self, parent=None, superview = None):
         parent: View = parent
         self.children.reverse()
 

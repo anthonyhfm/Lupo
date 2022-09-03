@@ -18,7 +18,7 @@ class Button(View):
         self.text = text
         self.onclick = onclick
 
-    def get_osx_render(self, parent=None, superview: NSView = None):
+    def get_osx_render(self, parent=None, superview = None):
         b = NSButton.alloc().initWithFrame_(((0, 0), (0, 0)))
         b.setBezelStyle_(4)
         b.setTitle_(self.text)

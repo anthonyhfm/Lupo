@@ -1,7 +1,9 @@
-from Cocoa import NSWindow, NSObject, NSApp, NSApplication, NSMenu, NSMenuItem
-from PyObjCTools import AppHelper
-from .osx_display import get_display_size
+import sys
 
+if sys.platform == "darwin":
+    from Cocoa import NSWindow, NSObject, NSApp, NSApplication, NSMenu, NSMenuItem
+    from PyObjCTools import AppHelper
+    from .osx_display import get_display_size
 
 class OSX_OBJC_WINDOW:
     title = ""
