@@ -8,6 +8,7 @@ if sys.platform == "darwin":
 class View:
     children: list = []
     style = Style()
+    parent_window = None
 
     def __init__(self, children: list = None, style: Style = None):
         self.children = children
@@ -16,18 +17,8 @@ class View:
             self.style = style
 
     def get_osx_render(self, parent=None, superview: NSView = None):
-        view_width = 0
-        view_height = 0
-
-        if self.style.width is not None:
-            view_width = self.style.width
-        else:
-            view_width = superview.frame().size.width
-
-        if self.style.height is not None:
-            view_height = self.style.height
-        else:
-            view_height = superview.frame().size.height
+        view_width = self.style.width if self.style.width is not None else superview.frame().size.width
+        view_height = self.style.height if self.style.height is not None else superview.frame().size.height
 
         ns_view = NSView.alloc().initWithFrame_(((0, 0), (view_width, view_height)))
 

@@ -31,6 +31,6 @@ class Window:
         if sys.platform == "darwin":
             self.body.style.width = self.__size[0]
             self.body.style.height = self.__size[1]
-            self.osx_window.set_body(self.body.get_osx_render())
+            self.osx_window.set_body(self.body.get_osx_render(superview=self.osx_window.win.contentView()))
             self.osx_window.set_title(self.__title)
             self.osx_window.display_window()

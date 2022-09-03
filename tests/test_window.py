@@ -7,13 +7,13 @@ window.body = View(children=[
     Column(style=Style(gap=px(10)), children=[
 
         Row(style=Style(gap=px(10)), children=[
-            Button("Test 1"),
-            Button("Test 2"),
+            Button("Test 1", Style(width=px(100), height=px(100))),
+            Button("Test 2", Style(width=px(100), height=px(100))),
         ]),
 
         Row(style=Style(gap=px(10)), children=[
-            Button("Test 3"),
-            Button("Test 4"),
+            Button("Test 3", Style(width=px(100), height=px(100))),
+            Button("Test 4", Style(width=px(100), height=px(100))),
         ]),
 
     ])
