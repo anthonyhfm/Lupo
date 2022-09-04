@@ -1,7 +1,8 @@
 from lupo import *
 
 window = Window()
-window.set_size(256, 256)
+window.set_size(300, 300)
+window.set_title("Example Window")
 
 window.body = View(children=[
     Column(style=Style(gap=px(10)), children=[
