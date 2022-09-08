@@ -5,6 +5,7 @@ if sys.platform == "darwin":
     from PyObjCTools import AppHelper
     from .osx_display import get_display_size
 
+
 class OSX_OBJC_WINDOW:
     title = ""
     window_x = 0
@@ -12,7 +13,22 @@ class OSX_OBJC_WINDOW:
     window_width = 250
     window_height = 250
 
+    class AppDelegate(NSObject):
+        btn_click_pointers: dict = { }
+
+        def applicationDidFinishLaunching_(self, aNotification):
+            print("Hello, World!")
+
+        def buttonpress_(self, sender):
+            # Determine button by the pointer and call the function
+            print(sender)
+
     def __init__(self):
+        self.app = NSApplication.sharedApplication()
+
+        delegate = self.AppDelegate.alloc().init()
+        NSApp().setDelegate_(delegate)
+
         self.win = NSWindow.alloc()
 
         screen_size = get_display_size()

@@ -1,6 +1,7 @@
 import ctypes
 from ctypes import *
 from ctypes.wintypes import *
+import sys
 
 WNDPROCTYPE = WINFUNCTYPE(c_int, HWND, c_uint, WPARAM, LPARAM)
 

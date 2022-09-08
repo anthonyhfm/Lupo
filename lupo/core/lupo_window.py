@@ -37,6 +37,7 @@ class Window:
     def open(self):
         self.body.style.width = self.__size[0]
         self.body.style.height = self.__size[1]
+        self.body.parent_window = self
 
         if sys.platform == "darwin":
             self.osx_window.set_body(self.body.get_osx_render(superview=self.osx_window.win.contentView()))

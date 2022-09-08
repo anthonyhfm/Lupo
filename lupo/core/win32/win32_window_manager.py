@@ -1,11 +1,14 @@
 import ctypes
 from ctypes import *
 from ctypes.wintypes import *
-from .win32_structs import *
+import sys
+
+if sys.platform == "win32":
+    from .win32_structs import *
 
 
 class WIN32_WINDOW:
-    title = "Lupo Window"
+    title = ""
     window_x = 0
     window_y = 0
     window_width = 250
