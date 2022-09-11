@@ -23,9 +23,10 @@ class Button(View):
         b.setTitle_(self.text)
         b.sizeToFit()
 
-        b.setTarget_(self.parent_window.osx_window.app.delegate())
-        b.setAction_("buttonpress:")
-        b.onclick = self.onclick
+        if self.onclick is not None:
+            b.setTarget_(self.parent_window.osx_window.app.delegate())
+            b.setAction_("buttonpress:")
+            b.onclick = self.onclick
 
         btn_frame = b.frame()
         btn_frame.size.width = self.style.width if self.style.width is not None else btn_frame.size.width
