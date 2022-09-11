@@ -14,14 +14,10 @@ class OSX_OBJC_WINDOW:
     window_height = 250
 
     class AppDelegate(NSObject):
-        btn_click_pointers: dict = { }
-
-        def applicationDidFinishLaunching_(self, aNotification):
-            print("Hello, World!")
+        nsview_delegates: dict = {}
 
         def buttonpress_(self, sender):
-            # Determine button by the pointer and call the function
-            print(sender)
+            sender.onclick()
 
     def __init__(self):
         self.app = NSApplication.sharedApplication()

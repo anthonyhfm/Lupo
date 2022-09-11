@@ -10,6 +10,8 @@ class Row(View):
     def get_osx_render(self, parent=None, superview = None):
         parent: View = parent
         self.children.reverse()
+        for child in self.children:
+            child.parent_window = self.parent_window
 
         ns_view = NSView.alloc().initWithFrame_(((0, 0), (0, 0)))
 

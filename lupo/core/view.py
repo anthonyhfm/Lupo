@@ -17,6 +17,9 @@ class View:
             self.style = style
 
     def get_osx_render(self, parent=None, superview = None):
+        for child in self.children:
+            child.parent_window = self.parent_window
+
         view_width = self.style.width if self.style.width is not None else superview.frame().size.width
         view_height = self.style.height if self.style.height is not None else superview.frame().size.height
 
