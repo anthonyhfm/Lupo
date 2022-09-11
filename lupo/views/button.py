@@ -1,13 +1,11 @@
-import builtins
-
-from .view import View
-from .style import Style
+from ..core.view import View
+from ..core.style import Style
 import sys
 
 if sys.platform == "darwin":
     from Cocoa import NSView
     from Cocoa import NSButton
-    from .osx.osx_override import LupoNSButton
+    from ..core.osx.osx_override import LupoNSButton
 
 
 class Button(View):
