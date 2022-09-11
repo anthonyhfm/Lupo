@@ -4,6 +4,7 @@ if sys.platform == "darwin":
     from Cocoa import NSWindow, NSObject, NSApp, NSApplication, NSMenu, NSMenuItem
     from PyObjCTools import AppHelper
     from .osx_display import get_display_size
+    from .osx_structs import *
 
 
 class OSX_OBJC_WINDOW:
@@ -12,6 +13,7 @@ class OSX_OBJC_WINDOW:
     window_y = 0
     window_width = 250
     window_height = 250
+    resizable = True
 
     class AppDelegate(NSObject):
         nsview_delegates: dict = {}
@@ -34,7 +36,16 @@ class OSX_OBJC_WINDOW:
             (self.window_width, self.window_height)
         )
 
-        self.win.initWithContentRect_styleMask_backing_defer_(frame, 15, 2, 0)
+        self.win.initWithContentRect_styleMask_backing_defer_(
+            frame,
+            NSWindowStyleMask.NSWindowStyleMaskTitled.value |
+            NSWindowStyleMask.NSWindowStyleMaskClosable.value |
+            NSWindowStyleMask.NSWindowStyleMaskResizable.value |
+            NSWindowStyleMask.NSWindowStyleMaskMiniaturizable.value,
+            2,
+            0
+        )
+
         self.win.setTitle_(self.title)
         self.win.setLevel_(3)
 
@@ -44,6 +55,19 @@ class OSX_OBJC_WINDOW:
 
     def set_body(self, osx_render):
         self.win.contentView().addSubview_(osx_render)
+
+    def set_resizable(self, resizable: bool):
+
+        style_mask = (NSWindowStyleMask.NSWindowStyleMaskTitled.value |
+            NSWindowStyleMask.NSWindowStyleMaskClosable.value |
+            NSWindowStyleMask.NSWindowStyleMaskMiniaturizable.value)
+
+        if resizable:
+            style_mask |= NSWindowStyleMask.NSWindowStyleMaskResizable.value
+
+        self.win.setStyleMask_(style_mask)
+        self.resizable = resizable
+
 
     def set_size(self, width, height):
         self.window_width = width

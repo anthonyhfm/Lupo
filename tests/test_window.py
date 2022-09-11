@@ -3,7 +3,7 @@ from lupo import *
 window = Window()
 window.set_size(300, 300)
 window.set_title("Example Window")
-
+window.set_resizable(False)
 
 def test_print(text: str):
     print(f"{text}")

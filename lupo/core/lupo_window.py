@@ -26,6 +26,10 @@ class Window:
     def get_size(self):
         return self.__size
 
+    def set_resizable(self, resizeable):
+        if sys.platform == "darwin":
+            self.osx_window.set_resizable(resizeable)
+
     def set_title(self, title: str):
         self.__title = title
 
