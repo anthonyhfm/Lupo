@@ -15,11 +15,12 @@ class OSX_OBJC_WINDOW:
     window_height = 250
     resizable = True
 
-    class AppDelegate(NSObject):
-        nsview_delegates: dict = {}
+    if sys.platform == "darwin":
+        class AppDelegate(NSObject):
+            nsview_delegates: dict = {}
 
-        def buttonpress_(self, sender):
-            sender.onclick()
+            def buttonpress_(self, sender):
+                sender.onclick()
 
     def __init__(self):
         self.app = NSApplication.sharedApplication()
