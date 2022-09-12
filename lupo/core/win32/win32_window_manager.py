@@ -8,7 +8,7 @@ if sys.platform == "win32":
 
 
 class WIN32_WINDOW:
-    title = ""
+    title = "Lupo Window"
     window_x = 0
     window_y = 0
     window_width = 250
