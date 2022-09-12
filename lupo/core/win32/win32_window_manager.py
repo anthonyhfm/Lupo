@@ -5,6 +5,7 @@ import sys
 
 if sys.platform == "win32":
     from .win32_structs import *
+    from .win32_display import get_display_size
 
 
 class WIN32_WINDOW:
@@ -42,13 +43,15 @@ class WIN32_WINDOW:
 
         self.regRes = windll.user32.RegisterClassExW(byref(self.wndClass))
 
+        display_size = get_display_size()
+
         self.hWnd = windll.user32.CreateWindowExW(
             0,
             self.title,
             self.title,
             WS_OVERLAPPEDWINDOW | WS_CAPTION,
-            self.window_x,
-            self.window_y,
+            int(display_size["width"] / 2 - self.window_width / 2),
+            int(display_size["height"] / 2 - self.window_height / 2),
             self.window_width, self.window_height,
             0,
             0,
