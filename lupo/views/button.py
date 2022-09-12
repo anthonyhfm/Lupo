@@ -3,8 +3,6 @@ from ..core.style import Style
 import sys
 
 if sys.platform == "darwin":
-    from Cocoa import NSView
-    from Cocoa import NSButton
     from ..core.osx.osx_override import LupoNSButton
 
 
