@@ -76,7 +76,6 @@ class WIN32_WINDOW:
         rect_client = RECT()
         windll.user32.GetClientRect(self.hWnd, pointer(rect_client))
 
-        print(rect_client.right - rect_client.left)
         diffX = width - (rect_client.right - rect_client.left)
         diffY = height - (rect_client.bottom - rect_client.top)
         windll.user32.MoveWindow(self.hWnd, rect.left, rect.top, width + diffX, height + diffY, 0)
