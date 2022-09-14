@@ -59,19 +59,27 @@ class WIN32_WINDOW:
             0
         )
 
+    def get_hwnd(self):
+        return self.hWnd
+
+    def get_hinst(self):
+        return self.hInst
+
     def set_size(self, width, height):
         rect = RECT()
         windll.user32.GetWindowRect(self.hWnd, pointer(rect))
+        self.window_width = width
+        self.window_height = height
 
-        windll.user32.SetWindowPos(
-            self.hWnd,
-            0,
-            rect.left,
-            rect.top,
-            width,
-            height,
-            0
-        )
+        windll.user32.MoveWindow(self.hWnd, rect.left, rect.top, width, height, 0)
+
+        rect_client = RECT()
+        windll.user32.GetClientRect(self.hWnd, pointer(rect_client))
+
+        print(rect_client.right - rect_client.left)
+        diffX = width - (rect_client.right - rect_client.left)
+        diffY = height - (rect_client.bottom - rect_client.top)
+        windll.user32.MoveWindow(self.hWnd, rect.left, rect.top, width + diffX, height + diffY, 0)
 
     def set_title(self, title):
         self.title = title

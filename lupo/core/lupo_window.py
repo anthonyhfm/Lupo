@@ -49,4 +49,7 @@ class Window:
             self.osx_window.display_window()
 
         elif sys.platform == "win32":
+            window_hwnd = self.win32_window.get_hwnd()
+            window_hinst = self.win32_window.get_hinst()
+            self.body.get_win32_render(window_hwnd, window_hinst)
             self.win32_window.display_window()
