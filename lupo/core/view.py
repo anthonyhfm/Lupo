@@ -36,7 +36,7 @@ class View:
             0,
             "Static",
             "",
-            WS_CHILD | WS_VISIBLE,  # BS_GROUPBOX would prob. be the right element style
+            WS_CHILD | WS_VISIBLE,
             0, 0,
             view_width, view_height,
             hwnd,
@@ -45,25 +45,30 @@ class View:
             0
         )
 
-        for child in self.children:
-            c_hwnd = child.get_win32_render(view_hwnd, hinst)
-            c_rect = RECT()
-            windll.user32.GetWindowRect(c_hwnd, pointer(c_rect))
-            c_width = c_rect.right - c_rect.left
-            c_height = c_rect.bottom - c_rect.top
+        try:
+            return view_hwnd
+        finally:
+            for child in self.children:
+                c_hwnd = child.get_win32_render(view_hwnd, hinst)
+                c_rect = RECT()
+                windll.user32.GetWindowRect(c_hwnd, pointer(c_rect))
+                c_width = c_rect.right - c_rect.left
+                c_height = c_rect.bottom - c_rect.top
+                c_pos_x = int(view_width / 2 - c_width / 2)
+                c_pos_y = int(view_height / 2 - c_height / 2)
 
-            windll.user32.SetWindowPos(
-                c_hwnd,
-                0,
-                int(view_width / 2 - c_width / 2),
-                int(view_height / 2 - c_height / 2),
-                100,
-                100,
-                1
-            )
+                windll.user32.SetWindowPos(
+                    c_hwnd,
+                    0,
+                    c_pos_x,
+                    c_pos_y,
+                    c_width,
+                    c_height,
+                    0
+                )
 
 
-        return view_hwnd
+
 
     def get_osx_render(self, parent=None, superview = None):
         for child in self.children:
