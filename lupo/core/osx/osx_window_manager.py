@@ -58,7 +58,6 @@ class OSX_OBJC_WINDOW:
         self.win.contentView().addSubview_(osx_render)
 
     def set_resizable(self, resizable: bool):
-
         style_mask = (NSWindowStyleMask.NSWindowStyleMaskTitled.value |
             NSWindowStyleMask.NSWindowStyleMaskClosable.value |
             NSWindowStyleMask.NSWindowStyleMaskMiniaturizable.value)
