@@ -15,11 +15,11 @@ class Text(View):
     def get_osx_render(self, parent=None, superview = None):
         parent: View
 
-        t = NSTextField.alloc().initWithFrame_(((0, 0), (0, 0)))
-        t.setStringValue_(self.text)
-        t.setBackgroundColor_(None)
-        t.setBezeled_(False)
-        t.setEditable_(False)
-        t.sizeToFit()
+        text_element = NSTextField.alloc().initWithFrame_(((0, 0), (0, 0)))
+        text_element.setStringValue_(self.text)
+        text_element.setBackgroundColor_(None)
+        text_element.setBezeled_(False)
+        text_element.setEditable_(False)
+        text_element.sizeToFit()
 
-        return t
+        return text_element
