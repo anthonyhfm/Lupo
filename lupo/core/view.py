@@ -1,5 +1,5 @@
 import sys
-from lupo.styling.style import Style
+from lupo.styling import *
 
 if sys.platform == "win32":
     from .win32.win32_structs import *
@@ -7,8 +7,9 @@ if sys.platform == "win32":
     from ctypes.wintypes import *
 
 if sys.platform == "darwin":
-    from Cocoa import NSView
+    from Cocoa import NSView, NSColor
 
+from ..styling.applier import *
 
 class View:
     children: list = []
@@ -67,8 +68,6 @@ class View:
                 )
 
 
-
-
     def get_osx_render(self, parent=None, superview = None):
         for child in self.children:
             child.parent_window = self.parent_window
@@ -77,6 +76,8 @@ class View:
         view_height = self.style.height if self.style.height is not None else superview.frame().size.height
 
         ns_view = NSView.alloc().initWithFrame_(((0, 0), (view_width, view_height)))
+
+        apply_osx_view_style(ns_view, self.style)
 
         for child_object in self.children:
             ns_child = child_object.get_osx_render(parent=self, superview=ns_view)

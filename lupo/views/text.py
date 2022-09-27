@@ -5,6 +5,9 @@ import sys
 if sys.platform == "darwin":
     from Cocoa import NSTextField
 
+from ..styling.applier import *
+
+
 class Text(View):
     text: str = ""
 
@@ -21,5 +24,7 @@ class Text(View):
         text_element.setBezeled_(False)
         text_element.setEditable_(False)
         text_element.sizeToFit()
+
+        apply_osx_view_style(text_element, self.style)
 
         return text_element

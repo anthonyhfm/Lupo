@@ -10,6 +10,8 @@ if sys.platform == "win32":
 if sys.platform == "darwin":
     from ..core.osx.osx_override import LupoNSButton
 
+from ..styling.applier import *
+
 
 class Button(View):
     text: str
@@ -37,19 +39,21 @@ class Button(View):
         return view_hwnd
 
     def get_osx_render(self, parent=None, superview = None):
-        b = LupoNSButton.alloc().initWithFrame_(((0, 0), (0, 0)))
-        b.setBezelStyle_(4)
-        b.setTitle_(self.text)
-        b.sizeToFit()
+        ns_button = LupoNSButton.alloc().initWithFrame_(((0, 0), (0, 0)))
+        ns_button.setBezelStyle_(4)
+        ns_button.setTitle_(self.text)
+        ns_button.sizeToFit()
+
+        apply_osx_view_style(ns_button, self.style)
 
         if self.onclick is not None:
-            b.setTarget_(self.parent_window.osx_window.app.delegate())
-            b.setAction_("buttonpress:")
-            b.onclick = self.onclick
+            ns_button.setTarget_(self.parent_window.osx_window.app.delegate())
+            ns_button.setAction_("buttonpress:")
+            ns_button.onclick = self.onclick
 
-        btn_frame = b.frame()
+        btn_frame = ns_button.frame()
         btn_frame.size.width = self.style.width if self.style.width is not None else btn_frame.size.width
         btn_frame.size.height = self.style.height if self.style.height is not None else btn_frame.size.height
-        b.setFrame_(btn_frame)
+        ns_button.setFrame_(btn_frame)
 
-        return b
+        return ns_button

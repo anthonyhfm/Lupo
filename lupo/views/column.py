@@ -2,8 +2,9 @@ from ..core.view import View
 import sys
 
 if sys.platform == "darwin":
-    from Cocoa import NSView
+    from Cocoa import NSView, NSColor
 
+from ..styling.applier import *
 
 class Column(View):
     def get_osx_render(self, parent=None, superview = None):
@@ -13,6 +14,8 @@ class Column(View):
             child.parent_window = self.parent_window
 
         ns_view = NSView.alloc().initWithFrame_(((0, 0), (0, 0)))
+
+        apply_osx_view_style(ns_view, self.style)
 
         children_osx_renders = [child.get_osx_render(parent=self, superview=ns_view) for child in self.children]
 
