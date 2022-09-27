@@ -27,7 +27,7 @@ class Button(View):
             0,
             "Button",
             self.text,
-            WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,  # BS_GROUPBOX would prob. be the right element style
+            WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
             0, 0,
             self.style.width, self.style.height,
             hwnd,
