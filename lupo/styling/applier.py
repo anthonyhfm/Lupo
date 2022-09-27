@@ -1,3 +1,4 @@
+from platform import platform
 import sys
 from .style import *
 from .color import *
@@ -6,7 +7,8 @@ if sys.platform == "darwin":
     from Cocoa import NSView, NSColor
 
 
-def apply_osx_view_style(ns_view: NSView, style: Style):
+def apply_osx_view_style(ns_view, style: Style):
+    ns_view: NSView
     if style.background_color is not None:
         view_color = style.background_color.get_rgb_value()
         ns_view.setBackgroundColor_(
