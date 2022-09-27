@@ -1,10 +1,9 @@
 from ..core.view import View
-from ..core.style import Style
+from lupo.styling.style import Style
 import sys
 
 if sys.platform == "win32":
     from ..core.win32.win32_structs import *
-    import ctypes
     from ctypes import *
     from ctypes.wintypes import *
 

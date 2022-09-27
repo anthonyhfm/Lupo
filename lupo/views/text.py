@@ -1,5 +1,5 @@
 from ..core.view import View
-from ..core.style import Style
+from lupo.styling.style import Style
 import sys
 
 if sys.platform == "darwin":

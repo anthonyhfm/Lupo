@@ -1,6 +1,5 @@
 from ..core.view import View
 import sys
-from ..core.style import Style
 
 if sys.platform == "darwin":
     from Cocoa import NSView

@@ -1,9 +1,8 @@
 import sys
-from .style import Style
+from lupo.styling.style import Style
 
 if sys.platform == "win32":
     from .win32.win32_structs import *
-    import ctypes
     from ctypes import *
     from ctypes.wintypes import *
 

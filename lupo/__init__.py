@@ -5,4 +5,4 @@ from .views.column import Column
 from .views.button import Button
 from .views.text import Text
 
-from .core.style import *
+from lupo.styling import *

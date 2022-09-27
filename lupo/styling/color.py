@@ -1,0 +1,185 @@
+class Color:
+    _value = 0
+
+    def _rgb_to_int(self, rgb: tuple[int, int, int]) -> int:
+        return ((rgb[0] & 0x0ff) << 16) | (((rgb[1] & 0x0ff) << 8) | (rgb[2] & 0x0ff))
+
+    def _hex_to_rgb(self, hex: str) -> tuple[int, int, int]:
+        hex_color = hex.lstrip("#")
+        color_r = int(hex_color[0:2], 16)
+        color_g = int(hex_color[2:4], 16)
+        color_b = int(hex_color[4:6], 16)
+
+        return color_r, color_g, color_b
+
+    def __init__(self, rgb: tuple[int, int, int] = None, hex: str = None):
+        if rgb is None and hex is not None:
+            converted_rgb = self._hex_to_rgb(hex)
+            self._value = self._rgb_to_int(converted_rgb)
+        elif hex is None and rgb is not None:
+            self._value = self._rgb_to_int(rgb)
+
+    def __int__(self):
+        return self._value
+
+    def __str__(self):
+        red = (self._value >> 16) & 0x0ff
+        green = (self._value >> 8) & 0x0ff
+        blue = self._value & 0x0ff
+
+        return '#%02x%02x%02x' % (red, green, blue)
+
+    def get_value(self) -> int:
+        return self._value
+
+    def get_rgb_value(self) -> tuple[int, int, int]:
+        red = (self._value >> 16) & 0x0ff
+        green = (self._value >> 8) & 0x0ff
+        blue = self._value & 0x0ff
+
+        return red, green, blue
+
+    def get_hex_value(self) -> str:
+        return self.__str__()
+
+
+class Colors:
+    ALICEBLUE = Color(hex="#F0F8FF")
+    ANTIQUEWHITE = Color(hex="#FAEBD7")
+    AQUA = Color(hex="#00FFFF")
+    AQUAMARINE = Color(hex="#7FFFD4")
+    AZURE = Color(hex="#F0FFFF")
+    BEIGE = Color(hex="#F5F5DC")
+    BISQUE = Color(hex="#FFE4C4")
+    BLACK = Color(hex="#000000")
+    BLANCHEDALMOND = Color(hex="#FFEBCD")
+    BLUE = Color(hex="#0000FF")
+    BLUEVIOLET = Color(hex="#8A2BE2")
+    BROWN = Color(hex="#A52A2A")
+    BURLYWOOD = Color(hex="#DEB887")
+    CADETBLUE = Color(hex="#5F9EA0")
+    CHARTREUSE = Color(hex="#7FFF00")
+    CHOCOLATE = Color(hex="#D2691E")
+    CORAL = Color(hex="#FF7F50")
+    CORNFLOWERBLUE = Color(hex="#6495ED")
+    CORNSILK = Color(hex="#FFF8DC")
+    CRIMSON = Color(hex="#DC143C")
+    CYAN = Color(hex="#00FFFF")
+    DARKBLUE = Color(hex="#00008B")
+    DARKCYAN = Color(hex="#008B8B")
+    DARKGRAY = Color(hex="#A9A9A9")
+    DARKGREEN = Color(hex="#006400")
+    DARKKHAKI = Color(hex="#BDB76B")
+    DARKMAGENTA = Color(hex="#8B008B")
+    DARKOLIVEGREEN = Color(hex="#556B2F")
+    DARKORANGE = Color(hex="#FF8C00")
+    DARKORCHID = Color(hex="#9932CC")
+    DARKRED = Color(hex="#8B0000")
+    DARKSALMON = Color(hex="#E9967A")
+    DARKSEAGREEN = Color(hex="#8FBC8F")
+    DARKSLATEBLUE = Color(hex="#483D8B")
+    DARKSLATEGRAY = Color(hex="#2F4F4F")
+    DARKTURQUOISE = Color(hex="#00CED1")
+    DARKVIOLET = Color(hex="#9400D3")
+    DEEPPINK = Color(hex="#FF1493")
+    DEEPSKYBLUE = Color(hex="#00BFFF")
+    DIMGRAY = Color(hex="#696969")
+    DODGERBLUE = Color(hex="#1E90FF")
+    FIREBRICK = Color(hex="#B22222")
+    FLORALWHITE = Color(hex="#FFFAF0")
+    FORESTGREEN = Color(hex="#228B22")
+    FUCHSIA = Color(hex="#FF00FF")
+    GAINSBORO = Color(hex="#DCDCDC")
+    GHOSTWHITE = Color(hex="#F8F8FF")
+    GOLD = Color(hex="#FFD700")
+    GOLDENROD = Color(hex="#DAA520")
+    GRAY = Color(hex="#808080")
+    GREEN = Color(hex="#008000")
+    GREENYELLOW = Color(hex="#ADFF2F")
+    HONEYDEW = Color(hex="#F0FFF0")
+    HOTPINK = Color(hex="#FF69B4")
+    INDIANRED = Color(hex="#CD5C5C")
+    INDIGO = Color(hex="#4B0082")
+    IVORY = Color(hex="#FFFFF0")
+    KHAKI = Color(hex="#F0E68C")
+    LAVENDER = Color(hex="#E6E6FA")
+    LAVENDERBLUSH = Color(hex="#FFF0F5")
+    LAWNGREEN = Color(hex="#7CFC00")
+    LEMONCHIFFON = Color(hex="#FFFACD")
+    LIGHTBLUE = Color(hex="#ADD8E6")
+    LIGHTCORAL = Color(hex="#F08080")
+    LIGHTCYAN = Color(hex="#E0FFFF")
+    LIGHTGOLDENRODYELLOW = Color(hex="#FAFAD2")
+    LIGHTGRAY = Color(hex="#D3D3D3")
+    LIGHTGREEN = Color(hex="#90EE90")
+    LIGHTPINK = Color(hex="#FFB6C1")
+    LIGHTSALMON = Color(hex="#FFA07A")
+    LIGHTSEAGREEN = Color(hex="#20B2AA")
+    LIGHTSKYBLUE = Color(hex="#87CEFA")
+    LIGHTSLATEGRAY = Color(hex="#778899")
+    LIGHTSTEELBLUE = Color(hex="#B0C4DE")
+    LIGHTYELLOW = Color(hex="#FFFFE0")
+    LIME = Color(hex="#00FF00")
+    LIMEGREEN = Color(hex="#32CD32")
+    LINEN = Color(hex="#FAF0E6")
+    MAGENTA = Color(hex="#FF00FF")
+    MAROON = Color(hex="#800000")
+    MEDIUMAQUAMARINE = Color(hex="#66CDAA")
+    MEDIUMBLUE = Color(hex="#0000CD")
+    MEDIUMORCHID = Color(hex="#BA55D3")
+    MEDIUMPURPLE = Color(hex="#9370DB")
+    MEDIUMSEAGREEN = Color(hex="#3CB371")
+    MEDIUMSLATEBLUE = Color(hex="#7B68EE")
+    MEDIUMSPRINGGREEN = Color(hex="#00FA9A")
+    MEDIUMTURQUOISE = Color(hex="#48D1CC")
+    MEDIUMVIOLETRED = Color(hex="#C71585")
+    MIDNIGHTBLUE = Color(hex="#191970")
+    MINTCREAM = Color(hex="#F5FFFA")
+    MISTYROSE = Color(hex="#FFE4E1")
+    MOCCASIN = Color(hex="#FFE4B5")
+    NAVAJOWHITE = Color(hex="#FFDEAD")
+    NAVY = Color(hex="#000080")
+    OLDLACE = Color(hex="#FDF5E6")
+    OLIVE = Color(hex="#808000")
+    OLIVEDRAB = Color(hex="#6B8E23")
+    ORANGE = Color(hex="#FFA500")
+    ORANGERED = Color(hex="#FF4500")
+    ORCHID = Color(hex="#DA70D6")
+    PALEGOLDENROD = Color(hex="#EEE8AA")
+    PALEGREEN = Color(hex="#98FB98")
+    PALETURQUOISE = Color(hex="#AFEEEE")
+    PALEVIOLETRED = Color(hex="#DB7093")
+    PAPAYAWHIP = Color(hex="#FFEFD5")
+    PEACHPUFF = Color(hex="#FFDAB9")
+    PERU = Color(hex="#CD853F")
+    PINK = Color(hex="#FFC0CB")
+    PLUM = Color(hex="#DDA0DD")
+    POWDERBLUE = Color(hex="#B0E0E6")
+    PURPLE = Color(hex="#800080")
+    RED = Color(hex="#FF0000")
+    ROSYBROWN = Color(hex="#BC8F8F")
+    ROYALBLUE = Color(hex="#4169E1")
+    SADDLEBROWN = Color(hex="#8B4513")
+    SALMON = Color(hex="#FA8072")
+    SANDYBROWN = Color(hex="#F4A460")
+    SEAGREEN = Color(hex="#2E8B57")
+    SEASHELL = Color(hex="#FFF5EE")
+    SIENNA = Color(hex="#A0522D")
+    SILVER = Color(hex="#C0C0C0")
+    SKYBLUE = Color(hex="#87CEEB")
+    SLATEBLUE = Color(hex="#6A5ACD")
+    SLATEGRAY = Color(hex="#708090")
+    SNOW = Color(hex="#FFFAFA")
+    SPRINGGREEN = Color(hex="#00FF7F")
+    STEELBLUE = Color(hex="#4682B4")
+    TAN = Color(hex="#D2B48C")
+    TEAL = Color(hex="#008080")
+    THISTLE = Color(hex="#D8BFD8")
+    TOMATO = Color(hex="#FF6347")
+    TURQUOISE = Color(hex="#40E0D0")
+    VIOLET = Color(hex="#EE82EE")
+    WHEAT = Color(hex="#F5DEB3")
+    WHITE = Color(hex="#FFFFFF")
+    WHITESMOKE = Color(hex="#F5F5F5")
+    YELLOW = Color(hex="#FFFF00")
+    YELLOWGREEN = Color(hex="#9ACD32")
