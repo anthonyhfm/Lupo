@@ -13,8 +13,9 @@ if sys.platform == "win32":
 
 
 def apply_win32_hwnd_style(hwnd, style: Style):
-    if style.background_color is not None:
-        ...
+    s = win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE)
+    win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, s | win32con.WS_EX_LAYERED)
+    win32gui.SetLayeredWindowAttributes(hwnd, 0, int(style.opacity * 255), win32con.LWA_ALPHA)
 
 
 def apply_osx_view_style(ns_view, style: Style):

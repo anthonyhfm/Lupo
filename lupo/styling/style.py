@@ -15,15 +15,18 @@ class Style:
     height: int = None
     gap: int = None
     background_color: Color = None
+    opacity: float
 
     def __init__(
             self,
             width: int = None,
             height: int = None,
             gap: int = None,
-            background_color: Color = None
+            background_color: Color = None,
+            opacity: float = 1
     ):
         self.width = width if not None else self.width
         self.height = height if not None else self.height
         self.gap = gap if not None else self.gap
         self.background_color = background_color if not None else self.background_color
+        self.opacity = opacity
