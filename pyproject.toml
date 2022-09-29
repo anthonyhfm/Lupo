@@ -16,6 +16,7 @@ dependencies = [
 description = "A Python Framework for creating Cross-Platform Desktop Applications"
 readme = "README.MD"
 requires-python = ">=3.7"
+repository="https://github.com/anthonyhfm/lupo"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",

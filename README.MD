@@ -1,6 +1,6 @@
 <div align="center">
   <a>
-    <img src="lupo.svg">
+    <img src="https://raw.githubusercontent.com/anthonyhfm/Lupo/master/lupo.svg">
   </a>
 </div>
 
