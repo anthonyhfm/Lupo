@@ -6,6 +6,9 @@ if sys.platform == "win32":
     from ..core.win32.win32_structs import *
     from ctypes import *
     from ctypes.wintypes import *
+    import win32api
+    import win32con
+    import win32gui
 
 if sys.platform == "darwin":
     from ..core.osx.osx_override import LupoNSButton
@@ -27,7 +30,7 @@ class Button(View):
             0,
             "Button",
             self.text,
-            WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+            WS_TABSTOP | WS_CHILD | BS_DEFPUSHBUTTON,
             0, 0,
             self.style.width, self.style.height,
             hwnd,
@@ -36,7 +39,18 @@ class Button(View):
             0
         )
 
+        self._hwnd = view_hwnd
+        self._hinst = hinst
+
+        apply_win32_hwnd_style(self._hwnd, self.style)
+
         return view_hwnd
+
+    
+    def show_win32_view(self):
+        style = win32api.GetWindowLong(self._hwnd, win32con.GWL_STYLE)
+        win32gui.SetWindowLong(self._hwnd, win32con.GWL_STYLE, (style | win32con.WS_VISIBLE))
+
 
     def get_osx_render(self, parent=None, superview = None):
         ns_button = LupoNSButton.alloc().initWithFrame_(((0, 0), (0, 0)))
