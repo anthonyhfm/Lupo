@@ -6,6 +6,16 @@ from .color import *
 if sys.platform == "darwin":
     from Cocoa import NSView, NSColor
 
+if sys.platform == "win32":
+    import win32gui
+    import win32api
+    import win32con
+
+
+def apply_win32_hwnd_style(hwnd, style: Style):
+    if style.background_color is not None:
+        ...
+
 
 def apply_osx_view_style(ns_view, style: Style):
     ns_view: NSView

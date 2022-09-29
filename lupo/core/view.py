@@ -5,6 +5,9 @@ if sys.platform == "win32":
     from .win32.win32_structs import *
     from ctypes import *
     from ctypes.wintypes import *
+    import win32gui
+    import win32con
+    import win32api
 
 if sys.platform == "darwin":
     from Cocoa import NSView, NSColor
@@ -17,7 +20,7 @@ class View:
     parent_window = None
 
     def __init__(self, children: list = None, style: Style = None):
-        self.children = children
+        self.children = children if children is not None else self.children
 
         if style is not None:
             self.style = style
@@ -36,7 +39,7 @@ class View:
             0,
             "Static",
             "",
-            WS_CHILD | WS_VISIBLE,
+            WS_CHILD,
             0, 0,
             view_width, view_height,
             hwnd,
@@ -45,27 +48,45 @@ class View:
             0
         )
 
-        try:
-            return view_hwnd
-        finally:
-            for child in self.children:
-                c_hwnd = child.get_win32_render(view_hwnd, hinst)
-                c_rect = RECT()
-                windll.user32.GetWindowRect(c_hwnd, pointer(c_rect))
-                c_width = c_rect.right - c_rect.left
-                c_height = c_rect.bottom - c_rect.top
-                c_pos_x = int(view_width / 2 - c_width / 2)
-                c_pos_y = int(view_height / 2 - c_height / 2)
+        self._hwnd = view_hwnd
+        self._hinst = hinst
 
-                windll.user32.SetWindowPos(
-                    c_hwnd,
-                    0,
-                    c_pos_x,
-                    c_pos_y,
-                    c_width,
-                    c_height,
-                    0
-                )
+        apply_win32_hwnd_style(self._hwnd, self.style)
+
+        return view_hwnd
+
+
+    def show_win32_view(self):
+        view_rect = RECT()
+        windll.user32.GetWindowRect(self._hwnd, pointer(view_rect))
+
+        view_width = self.style.width if self.style.width is not None else view_rect.right - view_rect.left
+        view_height = self.style.height if self.style.height is not None else view_rect.bottom - view_rect.top
+
+        for child in self.children:
+            child_hwnd = child.get_win32_render(self._hwnd, self._hinst)
+
+            c_rect = RECT()
+            windll.user32.GetWindowRect(child_hwnd, pointer(c_rect))
+            c_width = c_rect.right - c_rect.left
+            c_height = c_rect.bottom - c_rect.top
+            c_pos_x = int(view_width / 2 - c_width / 2)
+            c_pos_y = int(view_height / 2 - c_height / 2)
+
+            windll.user32.SetWindowPos(
+                child_hwnd,
+                0,
+                c_pos_x,
+                c_pos_y,
+                c_width,
+                c_height,
+                0
+            )
+
+            child.show_win32_view()
+
+        style = win32api.GetWindowLong(self._hwnd, win32con.GWL_STYLE)
+        win32gui.SetWindowLong(self._hwnd, win32con.GWL_STYLE, (style | win32con.WS_VISIBLE))
 
 
     def get_osx_render(self, parent=None, superview = None):
