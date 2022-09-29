@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "lupo"
-version = "0.0.2.1"
+version = "0.0.3.1"
 authors = [
   { name="Anthony Hofmeister", email="me@anthonyhfm.dev" },
 ]

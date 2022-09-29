@@ -9,8 +9,8 @@
 
 ## Support
 
-- ✅ &nbsp; MacOS _is Supported_
-- ❌️ &nbsp; Windows ***is not Supported yet***
+- ✅ &nbsp; MacOS _is Supported_ **(more work in progress)**
+- ✅️ &nbsp; Windows _is Supported_ **(more work in progress)**
 - ❌️ &nbsp; Linux ***is not Supported yet***
 
 ## Installation
@@ -18,3 +18,25 @@
 ````
 pip install lupo
 ````
+
+## Simple Window using Lupo
+
+```python
+from lupo import *
+
+window = Window()
+window.set_size(300, 300)
+window.set_title("Hello World!")
+window.set_resizable(False) # Proper window resizing is not implemented in the current Version of Lupo (disable it for good)
+
+window.body = View(children=[ # This is the Body of the Window with Views and Children
+    
+    Row(style=Style(gap=px(10)), children=[ # Creates a Row of Buttons with a 10 pixel Gap in between
+        Button("Hello", Style(width=px(100), height=px(100))),
+        Button("World", Style(width=px(100), height=px(100))),
+    ]),
+    
+])
+```
+
+If you want to help me building this Library, feel free to ***fork*** the repo and _contribute_
