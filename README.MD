@@ -1,5 +1,5 @@
 <div align="center">
-  <a>
+  <a href="https://github.com/anthonyhfm/lupo">
     <img src="https://raw.githubusercontent.com/anthonyhfm/Lupo/master/lupo.svg">
   </a>
 </div>
