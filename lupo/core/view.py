@@ -22,8 +22,7 @@ class View:
     def __init__(self, children: list = None, style: Style = None):
         self.children = children if children is not None else self.children
 
-        if style is not None:
-            self.style = style
+        self.style = style if style is not None else Style()
 
     def get_win32_render(self, hwnd, hinst):
         for child in self.children:
