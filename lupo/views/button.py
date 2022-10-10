@@ -42,6 +42,17 @@ class Button(View):
         self._hwnd = view_hwnd
         self._hinst = hinst
 
+        ep = win32gui.GetTextExtentPoint32(win32gui.GetDC(view_hwnd), self.text)
+
+        windll.user32.SetWindowPos(
+            self._hwnd,
+            0,
+            0, 0,
+            ep[0] + 20 if self.style.width is None else self.style.width, 
+            ep[1] + 10 if self.style.height is None else self.style.height,
+            0
+        )
+
         apply_win32_hwnd_style(self._hwnd, self.style)
 
         return view_hwnd
