@@ -3,9 +3,14 @@ from ctypes import *
 from ctypes.wintypes import *
 import sys
 
+from lupo.core.view import View
+
 if sys.platform == "win32":
     from .win32_structs import *
     from .win32_display import get_display_size
+    import win32gui
+    import win32con
+    import win32api
 
 
 class WIN32_WINDOW:
@@ -15,10 +20,17 @@ class WIN32_WINDOW:
     window_width = 250
     window_height = 250
 
+    hwnd_list: list[tuple[object, View]]
+
     def py_wnd_procedure(self, hWnd, Msg, wParam, lParam):
         if Msg == WM_DESTROY:
             self.user32.PostQuitMessage(0)
             return 0
+
+        if Msg == win32con.WM_COMMAND:
+            if win32api.HIWORD(wParam) == win32con.BN_CLICKED:
+                print("Button Clicked")
+
         return self.user32.DefWindowProcW(hWnd, Msg, wParam, lParam)
 
     def __init__(self):
@@ -78,6 +90,7 @@ class WIN32_WINDOW:
 
         diffX = width - (rect_client.right - rect_client.left)
         diffY = height - (rect_client.bottom - rect_client.top)
+
         windll.user32.MoveWindow(self.hWnd, rect.left, rect.top, width + diffX, height + diffY, 0)
 
     def set_title(self, title):

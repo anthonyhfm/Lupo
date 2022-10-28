@@ -15,12 +15,15 @@ if sys.platform == "win32":
 from ..styling.applier import *
 
 class Column(View):
-    def get_win32_render(self, hwnd, hinst):
+    def get_win32_render(self, origin, hinst):
+        hwnd = self.parent_window.win32_window.get_hwnd()
+        self._origin = origin
+
         for child in self.children:
             child.parent_window = self.parent_window
 
         rect = RECT()
-        windll.user32.GetWindowRect(hwnd, pointer(rect))
+        windll.user32.GetWindowRect(origin, pointer(rect))
 
         self._view_width = self.style.width if self.style.width is not None else rect.right - rect.left
         self._view_height = self.style.height if self.style.height is not None else rect.bottom - rect.top
@@ -71,6 +74,9 @@ class Column(View):
         view_rect = RECT()
         windll.user32.GetWindowRect(self._hwnd, pointer(view_rect))
 
+        origin_rect = RECT()
+        windll.user32.GetWindowRect(self._origin, pointer(origin_rect))
+
         calculated_height = 0
         for hwnd in self._child_hwnds:
             rect = RECT()
@@ -89,8 +95,8 @@ class Column(View):
             c_width = c_rect.right - c_rect.left
             c_height = c_rect.bottom - c_rect.top
 
-            c_pos_x = int(self._view_width / 2 - c_width / 2)
-            c_pos_y = int(self._view_height / 2 - calculated_height / 2 + (c_index * c_height + c_index * self.style.gap))
+            c_pos_x = int(view_rect.left - origin_rect.left + self._view_width / 2 - c_width / 2)
+            c_pos_y = int(view_rect.top - origin_rect.top + self._view_height / 2 - calculated_height / 2 + (c_index * c_height + c_index * (self.style.gap if self.style.gap is not None else 0)))
 
             windll.user32.SetWindowPos(
                 child_hwnd,

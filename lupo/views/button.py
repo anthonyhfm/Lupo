@@ -25,7 +25,9 @@ class Button(View):
         self.text = text
         self.onclick = onclick
 
-    def get_win32_render(self, hwnd, hinst):
+    def get_win32_render(self, origin, hinst):
+        hwnd = self.parent_window.win32_window.get_hwnd()
+
         view_hwnd = windll.user32.CreateWindowExW(
             0,
             "Button",

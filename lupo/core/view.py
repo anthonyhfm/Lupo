@@ -24,7 +24,9 @@ class View:
 
         self.style = style if style is not None else Style()
 
-    def get_win32_render(self, hwnd, hinst):
+    def get_win32_render(self, origin, hinst):
+        hwnd = self.parent_window.win32_window.get_hwnd()
+
         for child in self.children:
             child.parent_window = self.parent_window
 

@@ -24,7 +24,7 @@ class Text(View):
         self.text = text
 
 
-    def get_win32_render(self, hwnd, hinst):
+    def get_win32_render(self, origin, hinst):
         view_height = self.style.height if self.style.height is not None else 0
         view_width = self.style.width if self.style.width is not None else 0
         print(self.style)
@@ -36,9 +36,9 @@ class Text(View):
             WS_CHILD | win32con.SS_CENTER,
             0, 0,
             view_width, view_height,
-            hwnd,
+            self.parent_window.win32_window.get_hwnd(),
             0,
-            windll.user32.GetWindowLongPtrA(hwnd, hinst),
+            windll.user32.GetWindowLongPtrA(self.parent_window.win32_window.get_hwnd(), hinst),
             0
         )
 
