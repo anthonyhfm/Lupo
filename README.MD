@@ -9,8 +9,8 @@
 
 ## Support
 
-- ✅ &nbsp; MacOS _is Supported_ **(more work in progress)**
-- ✅️ &nbsp; Windows _is Supported_ **(more work in progress)**
+- 🆗 &nbsp; MacOS _is Supported but not fully fleshed out_ **(more work in progress)**
+- ❌️ &nbsp; Windows ***is currently not Supported but actively worked on***
 - ❌️ &nbsp; Linux ***is not Supported yet***
 
 ## Installation
