@@ -18,9 +18,11 @@ from ..styling.applier import *
 
 class Select(View):
     options: list[str]
+    placeholder: str
 
-    def __init__(self, options: list[str], style: Style = None):
+    def __init__(self, options: list[str], placeholder: str = None, style: Style = None):
         super().__init__(style=style)
+        self.placeholder = placeholder
         self.options = options
 
     def add_option(self, option: str):
@@ -47,6 +49,10 @@ class Select(View):
         combobox_frame.size.width = self.style.width if self.style.width is not None else 120
         combobox_frame.size.height = self.style.height if self.style.height is not None else combobox_frame.size.height
         self._ns_combobox.setFrame_(combobox_frame)
+
+        if self.placeholder is not None:
+            self._ns_combobox.addItemWithObjectValue_(self.placeholder)
+            self._ns_combobox.selectItemWithObjectValue_(self.placeholder)
 
         for option in self.options:
             self._ns_combobox.addItemWithObjectValue_(option)
