@@ -25,46 +25,6 @@ class Button(View):
         self.text = text
         self.onclick = onclick
 
-    def get_win32_render(self, origin, hinst):
-        hwnd = self.parent_window.win32_window.get_hwnd()
-
-        view_hwnd = windll.user32.CreateWindowExW(
-            0,
-            "Button",
-            self.text,
-            WS_TABSTOP | WS_CHILD | BS_DEFPUSHBUTTON,
-            0, 0,
-            self.style.width, self.style.height,
-            hwnd,
-            0,
-            windll.user32.GetWindowLongPtrA(hwnd, hinst),
-            0
-        )
-
-        self._hwnd = view_hwnd
-        self._hinst = hinst
-
-        ep = win32gui.GetTextExtentPoint32(win32gui.GetDC(view_hwnd), self.text)
-
-        windll.user32.SetWindowPos(
-            self._hwnd,
-            0,
-            0, 0,
-            ep[0] + 20 if self.style.width is None else self.style.width, 
-            ep[1] + 10 if self.style.height is None else self.style.height,
-            0
-        )
-
-        apply_win32_hwnd_style(self._hwnd, self.style)
-
-        return view_hwnd
-
-    
-    def show_win32_view(self):
-        style = win32api.GetWindowLong(self._hwnd, win32con.GWL_STYLE)
-        win32gui.SetWindowLong(self._hwnd, win32con.GWL_STYLE, (style | win32con.WS_VISIBLE))
-
-
     def get_osx_render(self, parent=None, superview = None):
         ns_button = LupoNSButton.alloc().initWithFrame_(((0, 0), (0, 0)))
         ns_button.setBezelStyle_(4)

@@ -22,6 +22,9 @@ class OSX_OBJC_WINDOW:
             def buttonpress_(self, sender):
                 sender.onclick()
 
+
+
+
     def __init__(self):
         self.app = NSApplication.sharedApplication()
 
@@ -67,7 +70,6 @@ class OSX_OBJC_WINDOW:
 
         self.win.setStyleMask_(style_mask)
         self.resizable = resizable
-
 
     def set_size(self, width, height):
         self.window_width = width
