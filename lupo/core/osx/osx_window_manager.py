@@ -22,9 +22,6 @@ class OSX_OBJC_WINDOW:
             def buttonpress_(self, sender):
                 sender.onclick()
 
-
-
-
     def __init__(self):
         self.app = NSApplication.sharedApplication()
 
@@ -51,7 +48,7 @@ class OSX_OBJC_WINDOW:
         )
 
         self.win.setTitle_(self.title)
-        self.win.setLevel_(3)
+        self.win.setLevel_(0)
 
     def set_title(self, title):
         self.title = title
