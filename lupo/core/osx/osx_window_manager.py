@@ -1,7 +1,7 @@
 import sys
 
 if sys.platform == "darwin":
-    from Cocoa import NSWindow, NSObject, NSApp, NSApplication, NSMenu, NSMenuItem
+    from Cocoa import NSWindow, NSObject, NSApp, NSApplication
     from PyObjCTools import AppHelper
     from .osx_display import get_display_size
     from .osx_structs import *
@@ -22,10 +22,21 @@ class OSX_OBJC_WINDOW:
             def buttonpress_(self, sender):
                 sender.onclick()
 
+        class WindowDelegate(NSObject):
+            def windowWillClose_(self, sender):
+                ...
+
+            def windowWillMiniaturize_(self, sender):
+                ...
+
+            def windowDidResize_(self, sender):
+                ...
+
     def __init__(self):
         self.app = NSApplication.sharedApplication()
 
         delegate = self.AppDelegate.alloc().init()
+        window_delegate = self.WindowDelegate.alloc().init()
         NSApp().setDelegate_(delegate)
 
         self.win = NSWindow.alloc()
@@ -49,6 +60,7 @@ class OSX_OBJC_WINDOW:
 
         self.win.setTitle_(self.title)
         self.win.setLevel_(0)
+        self.win.setDelegate_(window_delegate)
 
     def set_title(self, title):
         self.title = title
