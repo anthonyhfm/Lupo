@@ -37,6 +37,8 @@ window.body = View(children=[ # This is the Body of the Window with Views and Ch
     ]),
     
 ])
+
+window.open()
 ```
 
 If you want to help me building this Library, feel free to ***fork*** the repo and _contribute_
